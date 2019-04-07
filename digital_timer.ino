@@ -21,7 +21,9 @@ long ledColor = CRGB::Red; // Default clock color, can be any valid color
 int BAUD_RATE = 9600;
 int total_seconds = 60;
 bool TestAllOn = false; // Set to true to test all leds, i.e. sets digit=8
-int timer_sleep = 5000; // Sleep this time between timers (1000 = 1 second)
+int flash_time = 5000; // Total flash time between timers (1000 = 1 second)
+int flash_increment = 250; // Flash leds on off (250 = 1/4 second)
+int timer_delay = 5000; // Total delay between flash and new timer (1000 = 1 second)
 
 // Use for 2 x 7 segments
 // 7 segments of 2 leds = 14 total leds per digit for array below
@@ -114,5 +116,22 @@ void loop() {
     delay(1000);
     seconds--;
   }
-  delay(timer_sleep);
+  int flash_count = flash_time;
+  int TOGGLE = BRIGHTNESS;
+  while (flash_count >= 0) {
+    delay(flash_increment);
+    FastLED.setBrightness( TOGGLE );
+    FastLED.show(); // Display leds array
+    if ( TOGGLE == BRIGHTNESS) {
+      TOGGLE = 0;
+    }
+    else {
+      TOGGLE = BRIGHTNESS;
+    }
+    flash_count = flash_count - flash_increment;
+  }
+  FastLED.setBrightness( 0 );
+  FastLED.show(); // Display leds array
+  FastLED.setBrightness( BRIGHTNESS );
+  delay(timer_delay);
 }
