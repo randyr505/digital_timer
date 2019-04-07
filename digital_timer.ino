@@ -11,16 +11,15 @@
 #include <FastLED.h>
 
 // Configure based on your setup
-
 // Your total number of leds
 #define NUM_LEDS 28 // 2x7 segment, 14 x 2 digits
 #define LED_TYPE WS2811 // Led type, i.e. WS2812B. See more: FastLED @github
 #define COLOR_ORDER BRG // Define color order for your strip
-int BRIGHTNESS = 50; // Define your max brightness
+int BRIGHTNESS = 100; // Define your max brightness
 #define LED_PIN 6 // Data pin for led comunication
-long ledColor = CRGB::DarkRed; // Default clock color, can be any valid color
+long ledColor = CRGB::Red; // Default clock color, can be any valid color
 int BAUD_RATE = 9600;
-int total_seconds = 30;
+int total_seconds = 60;
 bool TestAllOn = false; // Set to true to test all leds, i.e. sets digit=8
 int timer_sleep = 5000; // Sleep this time between timers (1000 = 1 second)
 
@@ -30,14 +29,14 @@ int timer_sleep = 5000; // Sleep this time between timers (1000 = 1 second)
 byte digits[10][14] = {
   {0,0, 1,1, 1,1, 1,1, 1,1, 1,1,  1,1}, // Digit 0
   {0,0, 1,1, 0,0, 0,0, 0,0, 0,0,  1,1}, // Digit 1
-  {1,1, 1,1, 1,1, 0,0, 1,1, 1,1,  0,0}, // Digit 2
+  {1,1, 0,0, 1,1, 1,1, 0,0, 1,1,  1,1}, // Digit 2
   {1,1, 1,1, 1,1, 0,0, 0,0, 1,1,  1,1}, // Digit 3
-  {1,1, 1,1, 0,0, 1,1, 0,0, 0,0,  1,1}, // Digit 4
-  {1,1, 0,0, 1,1, 1,1, 0,0, 1,1,  1,1}, // Digit 5
-  {1,1, 0,0, 1,1, 1,1, 1,1, 1,1,  1,1}, // Digit 6
-  {0,0, 1,1, 1,1, 0,0, 0,0, 0,0,  1,1}, // Digit 7
+  {1,1, 1,1, 0,0, 0,0, 1,1, 0,0,  1,1}, // Digit 4
+  {1,1, 1,1, 1,1, 0,0, 1,1, 1,1,  0,0}, // Digit 5
+  {1,1, 1,1, 1,1, 1,1, 1,1, 1,1,  0,0}, // Digit 6
+  {0,0, 1,1, 0,0, 0,0, 0,0, 1,1,  1,1}, // Digit 7
   {1,1, 1,1, 1,1, 1,1, 1,1, 1,1,  1,1}, // Digit 8
-  {1,1, 1,1, 1,1, 1,1, 0,0, 1,1,  1,1}  // Digit 9
+  {1,1, 1,1, 1,1, 0,0, 1,1, 1,1,  1,1}  // Digit 9
 }; // 2D Array for numbers on 7 segment
 
 // Shouldn't need to change anything below this line
